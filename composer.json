@@ -23,7 +23,9 @@
     "twig/twig": "^2.5"
   },
 	{
-    "bin": ["bin/generator"]
+    "bin": [
+			"bin/generator"
+		]
 	},
   "minimum-stability": "dev"
 }
