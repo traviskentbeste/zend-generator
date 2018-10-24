@@ -5,9 +5,9 @@
  * Tue Oct 23 23:16:36 CDT 2018
  */
 
-$installDirectory = './';
+$installDirectory = __DIR__;
 
-require_once $installDirectory . '/vendor/autoload.php';
+require_once $installDirectory . '/../../../vendor/autoload.php';
 $config = include($installDirectory . '/config.php');
 $variables = array();
 $verbose = 0;
