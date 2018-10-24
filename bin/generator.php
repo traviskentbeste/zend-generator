@@ -7,8 +7,8 @@
 
 $installDirectory = __DIR__;
 
-require_once $installDirectory . '/../../../vendor/autoload.php';
-$config = include($installDirectory . '/config.php');
+require_once $installDirectory . '/../../../../vendor/autoload.php';
+$config = include($installDirectory . '/../config.php');
 $variables = array();
 $verbose = 0;
 
