@@ -1,0 +1,48 @@
+<?php
+
+// fields
+{% for column in columns %}
+$form->get('{{ column.name }}')->setAttributes(['class' => 'form-control', 'placeholder' => '{{ column.nameCamelizedWithSpaces }}']);
+{% endfor %}
+
+// buttons
+$form->get('cancel')->setAttributes(['class' => 'btn btn-default', 'style' => 'margin-right:10px;']);
+$form->get('save')->setAttributes(['class' => 'btn btn-primary', 'style' => 'margin-right:10px;']);
+$form->get('save_and_edit')->setAttributes(['class' => 'btn btn-info', 'style' => 'margin-right:10px;']);
+
+$form = $this->form;
+$form->prepare();
+
+?>
+
+<?= $this->form()->openTag($form); ?>
+
+    <h1>Add {{ nameCamelized }}</h1>
+
+    <p>
+        Please fill out the following form and click the <i>Save</i> button.
+    </p>
+
+    <div class="container-fluid" style="border:0px solid black;">
+        <div class="row">
+            <div class="col-lg-4">
+
+{% for column in columns %}
+                <div class="form-group">
+                    <?= $this->formLabel($form->get('{{ column.name }}')); ?>
+                    <?= $this->formElement($form->get('{{ column.name }}')); ?>
+                    <?= $this->formElementErrors($form->get('{{ column.name }}')); ?>
+                </div>
+
+{% endfor %}
+                <div class="form-group">
+                    <?= $this->formElement($form->get('cancel')); ?>
+                    <?= $this->formElement($form->get('save')); ?>
+                    <?= $this->formElement($form->get('save_and_edit')); ?>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+<?= $this->form()->closeTag(); ?>

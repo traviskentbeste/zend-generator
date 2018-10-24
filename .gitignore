@@ -1,0 +1,6 @@
+vendor/*
+compilation_cache/*
+*.swp
+.idea/*
+config.php
+composer.lock

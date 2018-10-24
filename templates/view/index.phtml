@@ -1,0 +1,65 @@
+<a class="btn btn-default" href="{{ nameDashed }}/add">Add</a>
+<br>
+<br>
+
+<table id="datatable" class="display" style="width:100%">
+
+    <thead>
+    <tr>
+{% for column in columns %}
+        <th>{{ column.nameCamelizedWithSpaces }}</th>
+{% endfor %}
+        <th>&nbsp;</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <?php
+    foreach ($rows as $row)
+    {
+
+        print '<tr id="' . $row->getId() . '">';
+
+{% for column in columns %}
+{% if column.name matches '/_id$/' %}
+        print '<td>';
+        if ($row->get{{ column.nameCamelizedWithoutId }}())
+        {
+            print $row->get{{ column.nameCamelizedWithoutId }}()->getId();
+        }
+        print '</td>';
+{% else %}
+{% if column.type matches '/datetime/' %}
+        print '<td>' . $row->get{{ column.nameCamelized }}YmdHis() . '</td>';
+{% else %}
+        print '<td>' . $row->get{{ column.nameCamelized }}() . '</td>';
+{% endif %}
+{% endif %}
+
+{% endfor %}
+        print "<td>";
+        print '<a class="btn btn-default btn-sm" href="' . "{{ nameDashed }}" . '/edit/' . $row->getId() . '">Edit</a>';
+        print ' '; // needs the space
+        print '<a class="btn btn-danger btn-sm" href="' . "{{ nameDashed }}" . '/delete/' . $row->getId() . '">Delete</a>';
+        print '</td>';
+
+        print '</tr>';
+
+    }
+    ?>
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+        $('#datatable').DataTable({
+            "columnDefs": [
+                {
+                    "width": "88",
+                    "orderable": false,
+                    "targets": {{ columns|length }}
+                }
+            ]
+        });
+    });
+</script>

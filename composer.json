@@ -1,0 +1,26 @@
+{
+  "name": "tencorners/zend-generator",
+  "description": "Zend Framework controller/manager/view generator",
+  "type": "project",
+  "license": "BSD-3-Clause",
+  "keywords": [
+    "php",
+    "framework",
+    "mvc",
+    "zf3"
+  ],
+	"authors": [
+    {
+      "name": "Travis Kent Beste",
+      "email": "travis@tencorners.com"
+    }
+  ],
+  "homepage": "http://tencorners.com/projects/",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": "^7.0",
+    "twig/twig": "^2.5"
+  },
+  "minimum-stability": "dev"
+}
