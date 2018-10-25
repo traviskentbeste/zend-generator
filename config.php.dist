@@ -1,11 +1,11 @@
 <?php
 
 return array(
-	'baseDirectory' => '<YOUR_ZEND_BASE_DIRECTORY>',
+	'baseDirectory' => 'YOUR_ZEND_BASE_DIRECTORY',
 	'database' => array(
-		'hostname' => "<HOSTNAME>",
-		'username' => "<USERNAME>",
-		'password' => "<PASSWORD>",
-		'database' => '<DATABASE_NAME>',
+		'hostname' => "localhost",
+		'username' => "root",
+		'password' => "vagrant",
+		'database' => 'DATABASE_NAME',
 	),
 );

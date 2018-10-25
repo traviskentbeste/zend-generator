@@ -46,7 +46,7 @@ if ($verbose)
 }
 
 // set the templates directory
-$loader = new Twig_Loader_Filesystem($installDirectory . '/templates');
+$loader = new Twig_Loader_Filesystem($installDirectory . '/../templates');
 
 // set the twig environment
 $twig = new Twig_Environment($loader, array());
