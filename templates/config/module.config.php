@@ -1,27 +1,53 @@
+<?php
 
+namespace {{moduleCamelized}};
 
-// route
-'{{ nameDashed }}' => [
-    'type' => Segment::class,
-    'options' => [
-        'route' => '/oauth2/{{ nameDashed }}[/:action[/:id]]',
-        'constraints' => [
-            'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-            'id' => '[a-zA-Z0-9_-]*',
-        ],
-        'defaults' => [
-            'controller' => Controller\{{ nameCamelized }}Controller::class,
-                'action' => 'index',
-            ],
+use PHPUnit\Framework\MockObject\Invokable;
+
+use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
+
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+
+return [
+
+    'router' => [
+        'routes' => [
+
+        ]
     ],
-],
 
+    'controllers' => [
+        'factories' => [
 
-// this goes in 'controllers' => 'factories'
-Controller\{{ nameCamelized }}Controller::class => Controller\Factory\{{ nameCamelized }}ControllerFactory::class,
+        ],
+    ],
 
+    'service_manager' => [
+        'factories' => [
 
-// this goes in 'service_manager' => 'factories'
-Service\{{ nameCamelized }}Manager::class => Service\Factory\{{ nameCamelized }}ManagerFactory::class,
+        ],
+    ],
 
+    'view_manager' => [
+        'template_path_stack' => [
+            __DIR__ . '/../view',
+        ],
+    ],
 
+    'doctrine' => [
+        'driver' => [
+            __NAMESPACE__ . '_driver' => [
+                'class' => AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [__DIR__ . '/../src/Entity']
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
+                ]
+            ]
+        ]
+    ],
+
+];

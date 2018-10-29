@@ -19,9 +19,11 @@ $longopts = array(
 	"module:",
 	"name:",
 	"tablename:",
-	"createConfig",
+	"createAll",
+	"displayConfig",
 	"createViews",
 	"createController",
+	"createModule",
 	"createForm",
 	"createManager",
 	"createModuleConfig",
@@ -51,16 +53,51 @@ $loader = new Twig_Loader_Filesystem($installDirectory . '/../templates');
 // set the twig environment
 $twig = new Twig_Environment($loader, array());
 
-// config
-if (isset($options['createConfig']) && ($options['createConfig'] == '') ) {
+//--------------------//
+// module
+//--------------------//
+if (isset($options['createModule']) && ($options['createModule'] == '') ) {
 
-    // index
-    $config = $twig->render('config/module.config.php', $variables);
+    // module
+    $module = $twig->render('Module.php', $variables);
+    $viewDirectory = $config['baseDirectory'] . '/module/' . $variables['moduleCamelized'] . '/src';
+    $viewFilename = $viewDirectory . '/Module.php';
+    if (!file_exists($viewDirectory)) {
+        mkdir($viewDirectory, 0755, true);
+    }
+		// only update if it doesn't exist, because if we overwrite you'll be super annoyed
+		if (! file_exists($viewFilename)) {
+    	file_put_contents($viewFilename, $module);
+		}
 
-    echo $config;
 }
 
+//--------------------//
+// config
+//--------------------//
+if (isset($options['displayConfig']) && ($options['displayConfig'] == '') ) {
+
+    // module config single
+    $module_config_single = $twig->render('config/module.config.php.single', $variables);
+    echo $module_config_single;
+
+		// module config
+    $module_config = $twig->render('config/module.config.php', $variables);
+    $viewDirectory = $config['baseDirectory'] . '/module/' . $variables['moduleCamelized'] . '/config';
+    $viewFilename = $viewDirectory . '/module.config.php';
+    if (!file_exists($viewDirectory)) {
+        mkdir($viewDirectory, 0755, true);
+    }
+		// only update if it doesn't exist, because if we overwrite you'll be super annoyed
+		if (! file_exists($viewFilename)) {
+    	file_put_contents($viewFilename, $module_config);
+		}
+
+}
+
+//--------------------//
 // views
+//--------------------//
 if (isset($options['createViews']) && ($options['createViews'] == '') )
 {
 
@@ -161,15 +198,20 @@ if (isset($options['createController']) && ($options['createController'] == '') 
 function usage()
 {
 	print "usage: ./generator.php\n";
-	print "\t--help                : help\n";
-	print "\t--verbose             : verbose\n";
-	print "\t--module              : module\n";
-	print "\t--name                : name\n";
-	print "\t--tablename           : tablename\n";
-	print "\t--createController    : createController\n";
-	print "\t--createForm          : createForm\n";
-	print "\t--createService       : createService\n";
-	print "\t--displayModuleConfig : displayModuleConfig\n";
+	print "\t--help             : help\n";
+	print "\t--verbose          : verbose\n";
+	print "\t----------------------------------------\n";
+	print "\t--module           : module\n";
+	print "\t--name             : name\n";
+	print "\t--tablename        : tablename\n";
+	print "\t----------------------------------------\n";
+	print "\t--createAll        : createAll\n";
+	print "\t--createController : createController\n";
+	print "\t--createModule     : createModule\n";
+	print "\t--createManager    : createManager\n";
+	print "\t--createViews      : createViews\n";
+	print "\t--createForm       : createForm\n";
+	print "\t--displayConfig    : displayConfig\n";
 	exit(0);
 }
 
@@ -284,16 +326,16 @@ function getMysqlColumns($hostname, $username, $password, $database, &$variables
         $columns[] = $obj;
     }
 
-    $obj = new \stdClass;
-    $obj->name = 'test_id';
-    $obj->nameCamelized = camelize($obj->name, '_');
-    $obj->nameCamelizedLcfirst = lcfirst($obj->nameCamelized);
-    $obj->nameCamelizedWithSpaces = $obj->name;
-    $obj->nameCamelizedWithSpaces = preg_replace('/_/', ' ', $obj->nameCamelizedWithSpaces);
-    $obj->nameCamelizedWithSpaces = ucwords($obj->nameCamelizedWithSpaces);
-    $obj->nameWithoutId = preg_replace('/_id/', '', $obj->name);
-    $obj->nameCamelizedWithoutId = preg_replace('/Id$/', '', $obj->nameCamelized);
-    $columns[] = $obj;
+    //$obj = new \stdClass;
+    //$obj->name = 'test_id';
+    //$obj->nameCamelized = camelize($obj->name, '_');
+    //$obj->nameCamelizedLcfirst = lcfirst($obj->nameCamelized);
+    //$obj->nameCamelizedWithSpaces = $obj->name;
+    //$obj->nameCamelizedWithSpaces = preg_replace('/_/', ' ', $obj->nameCamelizedWithSpaces);
+    //$obj->nameCamelizedWithSpaces = ucwords($obj->nameCamelizedWithSpaces);
+    //$obj->nameWithoutId = preg_replace('/_id/', '', $obj->name);
+    //$obj->nameCamelizedWithoutId = preg_replace('/Id$/', '', $obj->nameCamelized);
+    //$columns[] = $obj;
 
     $variables['columns'] = $columns;
 
