@@ -10,7 +10,7 @@ use {{ moduleCamelized }}\Service\{{ nameCamelized }}Manager;
  * This is the factory class for {{ nameCamelized }}Manager service. The purpose of the factory
  * is to instantiate the service and pass it dependencies (inject dependencies).
  */
-class {{ nameCamelized }}ManaFactory
+class {{ nameCamelized }}ManagerFactory
 {
 
     /**
