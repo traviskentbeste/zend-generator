@@ -75,7 +75,7 @@ class {{ nameCamelized }}Form extends Form
 {% endif %}
         $this->add([
             'type' => 'text',
-            'name' => 'id',
+            'name' => '{{ column.name }}',
 {% if column.name matches '/_id$/' %}
             'attributes' => ['id' => '{{ column.name }}', 'value' => $value],
             'options' => ['label' => '{{ column.nameWithoutId }}',]
