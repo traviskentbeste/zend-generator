@@ -3,12 +3,12 @@
 namespace {{ moduleCamelized }}\Service;
 
 // this service entity
-use {{ moduleCamelized }}\\Entity\{{tablenameCamelized}};
+use {{ moduleCamelized }}\Entity\{{tablenameCamelized}};
 
 //  the service entities that are objects in this entity
 {% for column in columns %}
 {% if column.name matches '/_id/' %}
-use {{ moduleCamelized }}\\Entity\{{ column.nameCamelizedWithoutId }};
+use {{ moduleCamelized }}\Entity\{{ column.nameCamelizedWithoutId }};
 {% endif %}
 {% endfor %}
 
