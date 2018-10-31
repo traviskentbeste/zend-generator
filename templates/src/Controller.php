@@ -7,6 +7,11 @@ use Zend\View\Model\ViewModel;
 
 use {{ moduleCamelized }}\Form\{{ nameCamelized }}Form;
 use {{ moduleCamelized }}\Entity\{{ tablenameCamelized }};
+{% for column in columns %}
+{% if column.name matches '/_id$/' %}
+use {{ moduleCamelized }}\Entity\{{ tablenameCamelized }};
+{% endif %}
+{% endfor %}
 
 /**
  * This controller is responsible for {{ nameCamelized }}
@@ -62,6 +67,11 @@ class {{ nameCamelized }}Controller extends AbstractActionController
     public function addAction()
     {
         $objs = array();
+{% for column in columns %}
+{% if column.name matches '/_id$/' %}
+        $objs['{{ column.nameWithoutId }}s'] = $this->entityManager->getRepository({{ column.nameCamelized }}::class)->findAll();
+{% endif %}
+{% endfor %}
 
         // Create user form
         $form = new {{ nameCamelized }}Form('create', $this->entityManager, new {{ tablenameCamelized }}(), $objs);
@@ -106,8 +116,15 @@ class {{ nameCamelized }}Controller extends AbstractActionController
     {
 
         $id = $this->params()->fromRoute('id', NULL);
+
         $obj = $this->entityManager->getRepository({{ tablenameCamelized }}::class)->find($id);
+        
         $objs = array();
+{% for column in columns %}
+{% if column.name matches '/_id$/' %}
+        $objs['{{ column.nameWithoutId }}s'] = $this->entityManager->getRepository({{ column.nameCamelized }}::class)->findAll();
+{% endif %}
+{% endfor %}
 
         // Create form
         $form = new {{ nameCamelized }}Form('update', $this->entityManager, $obj, $objs);

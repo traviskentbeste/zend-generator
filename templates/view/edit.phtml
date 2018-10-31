@@ -3,6 +3,9 @@
 // fields
 {% for column in columns %}
 $form->get('{{ column.name }}')->setAttributes(['class' => 'form-control', 'placeholder' => '{{ column.nameCamelizedWithSpaces }}']);
+{% if column.name matches '/_id$/' %}
+$form->get('{{ column.nameWithoutId }}s')->setAttributes(['class' => 'form-control']);
+{% endif %}
 {% endfor %}
 
 // buttons

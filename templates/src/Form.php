@@ -3,7 +3,7 @@
 namespace {{ moduleCamelized }}\Form;
 
 use Zend\Form\Form;
-use Zend\Form\ElementSelect;
+use Zend\Form\Element\Select;
 use Zend\InputFilter\InputFilter;
 
 /**
@@ -85,12 +85,21 @@ class {{ nameCamelized }}Form extends Form
 {% else %}
             'attributes' => ['id' => '{{ column.name }}', 'value' => $this->obj->get{{ column.nameCamelized }}()],
 {% endif %}
-
             'options' => ['label' => '{{ column.nameCamelizedWithSpaces }}',]
 {% endif %}
-
         ]);
-
+{% if column.name matches '/_id$/' %}
+        // Add "clients" field
+        $value_options = array();
+        foreach ($this->objs['{{ column.nameWithoutId }}s'] as $datum) {
+            $value_options[$datum->getId()] = $datum->getId(); // have to adjust to what we want to display
+        }
+        $select = new Element\Select('{{ column.nameWithoutId }}s');
+        $select->setLabel('{{ column.nameCamelizedWithoutId }}s');
+        $select->setAttribute('id', '{{ column.nameWithoutId }}s');
+        $select->setValueOptions($value_options);
+        $this->add($select);
+{% endif %}
 {% endfor %}
 
         // button
