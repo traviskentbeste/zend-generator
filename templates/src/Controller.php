@@ -9,7 +9,7 @@ use {{ moduleCamelized }}\Form\{{ nameCamelized }}Form;
 use {{ moduleCamelized }}\Entity\{{ tablenameCamelized }};
 {% for column in columns %}
 {% if column.name matches '/_id$/' %}
-use {{ moduleCamelized }}\Entity\{{ tablenameCamelized }};
+use {{ moduleCamelized }}\Entity\{{ column.nameCamelized }};
 {% endif %}
 {% endfor %}
 
