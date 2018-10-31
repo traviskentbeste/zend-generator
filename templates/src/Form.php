@@ -100,6 +100,7 @@ class {{ nameCamelized }}Form extends Form
         $select->setValueOptions($value_options);
         $this->add($select);
 {% endif %}
+
 {% endfor %}
 
         // button

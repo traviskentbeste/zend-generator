@@ -118,7 +118,7 @@ class {{ nameCamelized }}Controller extends AbstractActionController
         $id = $this->params()->fromRoute('id', NULL);
 
         $obj = $this->entityManager->getRepository({{ tablenameCamelized }}::class)->find($id);
-        
+
         $objs = array();
 {% for column in columns %}
 {% if column.name matches '/_id$/' %}
