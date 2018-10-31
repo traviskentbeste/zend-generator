@@ -89,6 +89,7 @@ class {{ nameCamelized }}Form extends Form
 {% endif %}
         ]);
 {% if column.name matches '/_id$/' %}
+
         // Add "clients" field
         $value_options = array();
         foreach ($this->objs['{{ column.nameWithoutId }}s'] as $datum) {
@@ -102,7 +103,6 @@ class {{ nameCamelized }}Form extends Form
 {% endif %}
 
 {% endfor %}
-
         // button
         $buttons = array(
             'save',

@@ -69,7 +69,7 @@ class {{ nameCamelized }}Controller extends AbstractActionController
         $objs = array();
 {% for column in columns %}
 {% if column.name matches '/_id$/' %}
-        $objs['{{ column.nameWithoutId }}s'] = $this->entityManager->getRepository({{ column.nameCamelized }}::class)->findAll();
+        $objs['{{ column.nameWithoutId }}s'] = $this->entityManager->getRepository({{ column.nameCamelizedWithoutId }}::class)->findAll();
 {% endif %}
 {% endfor %}
 
@@ -122,7 +122,7 @@ class {{ nameCamelized }}Controller extends AbstractActionController
         $objs = array();
 {% for column in columns %}
 {% if column.name matches '/_id$/' %}
-        $objs['{{ column.nameWithoutId }}s'] = $this->entityManager->getRepository({{ column.nameCamelized }}::class)->findAll();
+        $objs['{{ column.nameWithoutId }}s'] = $this->entityManager->getRepository({{ column.tableNameCamelized }}::class)->findAll();
 {% endif %}
 {% endfor %}
 

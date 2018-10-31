@@ -263,8 +263,7 @@ function sanitize($variable, $type, &$variables, $verbose)
     $variableCamelizedLcfirst = lcfirst($variableCamelized);
     $variableCamelizedDashed = camelize2dashed($variableCamelized);
     $variableCamelizedUnderscored = preg_replace('/-/', '_', $variableCamelizedDashed);
-    $variableCamelizedWithSpaces = $variableCamelizedDashed;
-    $variableCamelizedWithSpaces = preg_replace('/-/', ' ', $variableCamelizedWithSpaces);
+    $variableCamelizedWithSpaces = preg_replace('/-/', ' ', $variableCamelizedDashed);
 
     $variables[$type . 'Camelized'] = $variableCamelized;
     $variables[$type . 'CamelizedLcFirst'] = $variableCamelizedLcfirst;
